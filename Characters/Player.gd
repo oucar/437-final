@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends Character
 
 # GLOBAL VARIABLES
 var velocity : Vector2
@@ -59,7 +59,6 @@ func flip_direction_handler(input : Vector2):
 # Change the current state depending on the input and current state
 func pick_next_state():
 	# available in KinematicBody2D
-	print(jumps, max_jumps)
 	if(is_on_floor()):
 		jumps = 0
 		
@@ -102,12 +101,20 @@ func _on_JumpHitbox_area_shape_entered(area_rid, area, area_shape_index, local_s
 	# check if the thing we're jumping on is an enemy
 	var enemy = area.owner
 	
+	print(enemy.can_be_hit)
 	if(enemy is Enemy && enemy.can_be_hit):
 		# global position - not relative to anything
+		print("JUMPED ON THE ENEMY!")
 		if(jump_hitbox.global_position.y < area.global_position.y):
 			# Jump attack implementation
 			velocity.y = -enemy_bounce_impulse
+			enemy.get_hit(jump_damage)
 
+# Get hit by an enemy
+func get_hit(damage : float):
+	self.health -= damage
+	self.current_state = STATE.HIT
+	
 
 # SETTERS AND GETTERS
 func set_current_state(new_state):
@@ -117,7 +124,5 @@ func set_current_state(new_state):
 		STATE.DOUBLE_JUMP:
 			jump()
 			animation_tree.set("parameters/double_jump/active", true)
-			
-	
-
-
+		STATE.HIT:
+			animation_tree.set("parameters/hit/active", true)

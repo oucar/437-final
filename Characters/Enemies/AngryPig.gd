@@ -3,7 +3,7 @@ extends Enemy
 onready var animated_sprite = $AnimatedSprite
 onready var animation_tree = $AnimationTree
 
-enum STATE { WALK, RUN }
+enum STATE { WALK, RUN, HIT }
 
 # Waypoints
 export(Array, NodePath) var waypoints
@@ -17,6 +17,7 @@ var waypoint_index = 0 setget set_waypoint_index
 var waypoint_position
 var velocity = Vector2.ZERO
 var current_state = STATE.WALK
+
 
 # function that runs when game starts
 func _ready():
@@ -65,20 +66,47 @@ func _physics_process(delta):
 			
 		else:
 			self.waypoint_index = 0
+
+# Player detection
+# Player Detection > Collision > Layers (only triggered by the player!)
+func _on_PlayerDetection_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
+	animation_tree.set("parameters/player_detected/blend_position", 1)
+
+	if (current_state == STATE.WALK):
+		current_state = STATE.RUN
+
+func _on_PlayerDetection_body_shape_exited(body_rid, body, body_shape_index, local_shape_index):
+	animation_tree.set("parameters/player_detected/blend_position", 0)
+	current_state = STATE.WALK
 	
+# Run when hit animation is finished
+func hit_animation_finished():
+	can_be_hit = true
+	current_state = STATE.RUN	
+
+
+func get_hit(damage : float):
+	print("!!")
+	health -= damage
 	
+	if(health <= 0):
+		# remove the scene
+		queue_free()
+		
+
+	can_be_hit = false
+	current_state = STATE.HIT
+	
+	# randomly select a hit animation
+	var animation_selection = GameSettings.random_hit_animation.randf_range(0, 1)
+	
+	animation_tree.set("parameters/hit/active", true)
+	animation_tree.set("parameters/hit_vartiaton/blend_amount", animation_selection)
+
 
 # SET WAYPOINTS
 func set_waypoint_index(value):
 	waypoint_index = value
 	waypoint_position = get_node(waypoints[value]).position
 
-# Player detection
-# Player Detection > Collision > Layers (only triggered by the player!)
-func _on_PlayerDetection_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
-	animation_tree.set("parameters/player_detected/blend_position", 1)
-	current_state = STATE.RUN
 
-func _on_PlayerDetection_body_shape_exited(body_rid, body, body_shape_index, local_shape_index):
-	animation_tree.set("parameters/player_detected/blend_position", 0)
-	current_state = STATE.WALK
