@@ -2,18 +2,28 @@ extends KinematicBody2D
 
 # GLOBAL VARIABLES
 var velocity : Vector2
-# turn human readable string into index
-enum STATE { IDLE, RUN, JUMP, DOUBLE_JUMP, WALL_JUMP, HIT, FALL }
+onready var animation_tree = $AnimationTree
+onready var animated_sprite = $AnimatedSprite
 
 # export will be publicly viewable in Inspector
 export(float) var MOVE_SPEED = 200;
-var current_state = STATE.IDLE setget set_current_state
-var jumps = 0
 export(float) var jump_impulse = 600
 
+# turn human readable string into index
+enum STATE { IDLE, RUN, JUMP, DOUBLE_JUMP, WALL_JUMP, HIT, FALL }
+var current_state = STATE.IDLE setget set_current_state
+var jumps = 0
+
+
+
+
+
 ##### FUNCTIONS ####
+
+# Generic physics process
 func _physics_process(delta):
 	var input = get_player_input()
+	flip_direction_handler(input)
 	
 	velocity = Vector2(
 		input.x * MOVE_SPEED,
@@ -23,10 +33,27 @@ func _physics_process(delta):
 	# Vector2.UP -> Direction of UP direction (check documentation)
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
-	print(velocity.y)
+	set_anim_parameters()
 	
+	print(velocity.y)
 	pick_next_state()
 	
+# Animation Tree
+func set_anim_parameters():
+	# required for blend_position! check the docs if needed
+	animation_tree.set("parameters/x_move/blend_position", sign(velocity.x))
+
+# Flip the sprite to when moving right or left (only when needed)	
+func flip_direction_handler(input : Vector2):
+	# x vector is positive -> look right
+	if(sign(input.x) == 1):
+		animated_sprite.flip_h = false
+	# x vector is negative -> look left
+	elif(sign(input.x) == -1):
+		animated_sprite.flip_h = true
+	
+	
+# Change the current state depending on the input and current state
 func pick_next_state():
 	# available in KinematicBody2D
 	if(is_on_floor()):
@@ -46,7 +73,7 @@ func pick_next_state():
 		pass	
 
 	
-	
+
 func get_player_input():
 	var input: Vector2
 	
