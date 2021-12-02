@@ -402,13 +402,14 @@ nodes/y_move/position = Vector2( 620, 110 )
 node_connections = [ "output", 0, "double_jump", "double_jump", 0, "y_move", "double_jump", 1, "Animation 2", "y_move", 0, "Animatipn", "y_move", 1, "x_move", "y_move", 2, "Animation" ]
 
 [node name="Player" type="KinematicBody2D"]
+collision_layer = 8
 script = ExtResource( 8 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( -16, -19 )
 frames = SubResource( 30 )
 animation = "idle"
-frame = 2
+frame = 1
 playing = true
 centered = false
 

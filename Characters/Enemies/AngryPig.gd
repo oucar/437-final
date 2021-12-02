@@ -1,11 +1,14 @@
 extends KinematicBody2D
 
 onready var animated_sprite = $AnimatedSprite
+onready var animation_tree = $AnimationTree
+
+enum STATE { WALK, RUN }
 
 # Waypoints
 export(Array, NodePath) var waypoints
-export(float) var MOVE_SPEED = 100
-export(float) var RUN_SPEED = 300
+export(float) var WALK_SPEED = 75
+export(float) var RUN_SPEED = 150
 export(int) var STARTING_WAYPOINT = 0
 export(float) var WAYPOINT_ARRIVED_DISTANCE = 10
 export(bool) var FACES_RIGHT = true
@@ -13,6 +16,7 @@ export(bool) var FACES_RIGHT = true
 var waypoint_index = 0 setget set_waypoint_index
 var waypoint_position
 var velocity = Vector2.ZERO
+var current_state = STATE.WALK
 
 # function that runs when game starts
 func _ready():
@@ -25,12 +29,20 @@ func _physics_process(delta):
 	
 	if(direction_horizontal >= WAYPOINT_ARRIVED_DISTANCE):
 		
+		# used to change the move_speed when the pig detects the player
+		var move_speed: float
+		match(current_state):
+			STATE.WALK:
+				move_speed = WALK_SPEED
+			STATE.RUN:
+				move_speed = RUN_SPEED
+		
 		# used to flip the pig sprite when needed
 		var horizontal_sign = sign(direction.x)
 		
 		velocity = Vector2(
 			# 200, -200 or 0
-			MOVE_SPEED * sign(direction.x),
+			move_speed * sign(direction.x),
 			min(velocity.y + GameSettings.GRAVITY, GameSettings.TERMINAL_VELOCITY)	
 		)
 		
@@ -60,3 +72,13 @@ func _physics_process(delta):
 func set_waypoint_index(value):
 	waypoint_index = value
 	waypoint_position = get_node(waypoints[value]).position
+
+# Player detection
+# Player Detection > Collision > Layers (only triggered by the player!)
+func _on_PlayerDetection_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
+	animation_tree.set("parameters/player_detected/blend_position", 1)
+	current_state = STATE.RUN
+
+func _on_PlayerDetection_body_shape_exited(body_rid, body, body_shape_index, local_shape_index):
+	animation_tree.set("parameters/player_detected/blend_position", 0)
+	current_state = STATE.WALK
