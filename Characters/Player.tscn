@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=54 format=2]
 
 [ext_resource path="res://Assets/Main Characters/Virtual Guy/Double Jump (32x32).png" type="Texture" id=1]
 [ext_resource path="res://Assets/Main Characters/Virtual Guy/Run (32x32).png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Assets/Main Characters/Virtual Guy/Wall Jump (32x32).png" type="Texture" id=5]
 [ext_resource path="res://Assets/Main Characters/Virtual Guy/Hit (32x32).png" type="Texture" id=6]
 [ext_resource path="res://Assets/Main Characters/Virtual Guy/Jump (32x32).png" type="Texture" id=7]
+[ext_resource path="res://Characters/Player.gd" type="Script" id=8]
 
 [sub_resource type="AtlasTexture" id=31]
 atlas = ExtResource( 4 )
@@ -218,13 +219,20 @@ animations = [ {
 "speed": 20.0
 } ]
 
-[node name="Player" type="KinematicBody2D"]
+[sub_resource type="CapsuleShape2D" id=45]
+height = 4.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 8 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -16, -19 )
 frames = SubResource( 30 )
-animation = "wall_jump"
-frame = 4
+animation = "idle"
+frame = 9
 playing = true
 centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 1 )
+shape = SubResource( 45 )
