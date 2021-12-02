@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=2]
+[gd_scene load_steps=71 format=2]
 
 [ext_resource path="res://Assets/Main Characters/Virtual Guy/Double Jump (32x32).png" type="Texture" id=1]
 [ext_resource path="res://Assets/Main Characters/Virtual Guy/Run (32x32).png" type="Texture" id=2]
@@ -224,8 +224,7 @@ height = 4.0
 
 [sub_resource type="Animation" id=46]
 resource_name = "double_jump"
-length = 0.05
-loop = true
+length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:animation")
 tracks/0/interp = 1
@@ -237,6 +236,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ "double_jump" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimationTree:active")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=47]
@@ -341,11 +352,18 @@ tracks/0/keys = {
 "values": [ "wall_jump" ]
 }
 
+[sub_resource type="AnimationNodeAnimation" id=61]
+animation = "double_jump"
+
 [sub_resource type="AnimationNodeAnimation" id=58]
 animation = "fall"
 
 [sub_resource type="AnimationNodeAnimation" id=59]
 animation = "jump"
+
+[sub_resource type="AnimationNodeOneShot" id=62]
+fadein_time = 0.0
+fadeout_time = 0.0
 
 [sub_resource type="AnimationNodeAnimation" id=53]
 animation = "idle"
@@ -367,17 +385,21 @@ blend_point_2/pos = -1.0
 [sub_resource type="AnimationNodeBlend3" id=60]
 
 [sub_resource type="AnimationNodeBlendTree" id=57]
-graph_offset = Vector2( 0, -66 )
+graph_offset = Vector2( -192.882, -120.444 )
 nodes/Animation/node = SubResource( 58 )
 nodes/Animation/position = Vector2( 100, 370 )
+"nodes/Animation 2/node" = SubResource( 61 )
+"nodes/Animation 2/position" = Vector2( 575.5, 380.5 )
 nodes/Animatipn/node = SubResource( 59 )
 nodes/Animatipn/position = Vector2( 90, 0 )
-nodes/output/position = Vector2( 720, 120 )
+nodes/double_jump/node = SubResource( 62 )
+nodes/double_jump/position = Vector2( 850, 80 )
+nodes/output/position = Vector2( 1120, 80 )
 nodes/x_move/node = SubResource( 56 )
 nodes/x_move/position = Vector2( 60, 170 )
 nodes/y_move/node = SubResource( 60 )
-nodes/y_move/position = Vector2( 480, 120 )
-node_connections = [ "output", 0, "y_move", "y_move", 0, "Animatipn", "y_move", 1, "x_move", "y_move", 2, "Animation" ]
+nodes/y_move/position = Vector2( 620, 110 )
+node_connections = [ "output", 0, "double_jump", "double_jump", 0, "y_move", "double_jump", 1, "Animation 2", "y_move", 0, "Animatipn", "y_move", 1, "x_move", "y_move", 2, "Animation" ]
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 8 )
@@ -386,7 +408,7 @@ script = ExtResource( 8 )
 position = Vector2( -16, -19 )
 frames = SubResource( 30 )
 animation = "idle"
-frame = 7
+frame = 10
 playing = true
 centered = false
 
@@ -407,5 +429,6 @@ anims/wall_jump = SubResource( 52 )
 tree_root = SubResource( 57 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
+parameters/double_jump/active = false
 parameters/x_move/blend_position = 0
 parameters/y_move/blend_amount = 0.0

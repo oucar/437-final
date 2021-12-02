@@ -31,8 +31,6 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
 	set_anim_parameters()
-	
-	# print(velocity.y)
 	pick_next_state()
 	
 # Animation Tree
@@ -99,7 +97,10 @@ func jump():
 # SETTERS AND GETTERS
 func set_current_state(new_state):
 	match(new_state):
-		STATE.JUMP, STATE.DOUBLE_JUMP:
+		STATE.JUMP:
 			jump()
+		STATE.DOUBLE_JUMP:
+			jump()
+			animation_tree.set("parameters/double_jump/active", true)
 			
 	
