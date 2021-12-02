@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Assets/Background/Gray.png" type="Texture" id=1]
 [ext_resource path="res://Levels/Tileset.tres" type="TileSet" id=2]
 [ext_resource path="res://Characters/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Characters/Enemies/AngryPig.tscn" type="PackedScene" id=4]
 
 [node name="Level1" type="Node2D"]
 
@@ -26,6 +27,36 @@ position = Vector2( 133, -166 )
 remote_path = NodePath("../../Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 132, -165 )
+position = Vector2( 133, -166 )
 current = true
 smoothing_speed = 30.0
+
+[node name="AngryPig" parent="." instance=ExtResource( 4 )]
+position = Vector2( 228, -144 )
+waypoints = [ NodePath("../Waypoints/Waypoint1"), NodePath("../Waypoints/Waypoint2") ]
+
+[node name="Waypoints" type="Node2D" parent="."]
+
+[node name="Waypoint1" type="Position2D" parent="Waypoints"]
+position = Vector2( 182, -136 )
+
+[node name="Waypoint7" type="Position2D" parent="Waypoints"]
+position = Vector2( -17, 30 )
+
+[node name="Waypoint6" type="Position2D" parent="Waypoints"]
+position = Vector2( -24, 34 )
+
+[node name="Waypoint3" type="Position2D" parent="Waypoints"]
+position = Vector2( 291, -108 )
+
+[node name="Waypoint4" type="Position2D" parent="Waypoints"]
+position = Vector2( -37, -21 )
+
+[node name="Waypoint5" type="Position2D" parent="Waypoints"]
+position = Vector2( -45, 28 )
+
+[node name="Waypoint8" type="Position2D" parent="Waypoints"]
+position = Vector2( -20, 1 )
+
+[node name="Waypoint2" type="Position2D" parent="Waypoints"]
+position = Vector2( 270, -136 )
