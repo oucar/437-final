@@ -12,11 +12,8 @@ export(float) var jump_impulse = 600
 # turn human readable string into index
 enum STATE { IDLE, RUN, JUMP, DOUBLE_JUMP, WALL_JUMP, HIT, FALL }
 var current_state = STATE.IDLE setget set_current_state
+var max_jumps = 2
 var jumps = 0
-
-
-
-
 
 ##### FUNCTIONS ####
 
@@ -35,7 +32,7 @@ func _physics_process(delta):
 	
 	set_anim_parameters()
 	
-	print(velocity.y)
+	# print(velocity.y)
 	pick_next_state()
 	
 # Animation Tree
@@ -60,6 +57,7 @@ func flip_direction_handler(input : Vector2):
 # Change the current state depending on the input and current state
 func pick_next_state():
 	# available in KinematicBody2D
+	print(jumps, max_jumps)
 	if(is_on_floor()):
 		jumps = 0
 		
@@ -74,7 +72,9 @@ func pick_next_state():
 			self.current_state = STATE.IDLE
 		
 	else:
-		pass	
+		if(Input.is_action_just_pressed("jump") && (jumps < max_jumps) ):
+			self.current_state = STATE.DOUBLE_JUMP
+
 
 	
 
@@ -99,7 +99,7 @@ func jump():
 # SETTERS AND GETTERS
 func set_current_state(new_state):
 	match(new_state):
-		STATE.JUMP:
+		STATE.JUMP, STATE.DOUBLE_JUMP:
 			jump()
 			
 	
