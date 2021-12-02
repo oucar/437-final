@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=2]
+[gd_scene load_steps=72 format=2]
 
 [ext_resource path="res://Assets/Main Characters/Virtual Guy/Double Jump (32x32).png" type="Texture" id=1]
 [ext_resource path="res://Assets/Main Characters/Virtual Guy/Run (32x32).png" type="Texture" id=2]
@@ -401,6 +401,9 @@ nodes/y_move/node = SubResource( 60 )
 nodes/y_move/position = Vector2( 620, 110 )
 node_connections = [ "output", 0, "double_jump", "double_jump", 0, "y_move", "double_jump", 1, "Animation 2", "y_move", 0, "Animatipn", "y_move", 1, "x_move", "y_move", 2, "Animation" ]
 
+[sub_resource type="RectangleShape2D" id=63]
+extents = Vector2( 7, 1 )
+
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 8
 script = ExtResource( 8 )
@@ -409,7 +412,7 @@ script = ExtResource( 8 )
 position = Vector2( -16, -19 )
 frames = SubResource( 30 )
 animation = "idle"
-frame = 1
+frame = 9
 playing = true
 centered = false
 
@@ -433,3 +436,13 @@ active = true
 parameters/double_jump/active = false
 parameters/x_move/blend_position = 0
 parameters/y_move/blend_amount = 0.0
+
+[node name="JumpHitbox" type="Area2D" parent="."]
+position = Vector2( 0, 13 )
+collision_layer = 0
+collision_mask = 2048
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpHitbox"]
+shape = SubResource( 63 )
+
+[connection signal="area_shape_entered" from="JumpHitbox" to="." method="_on_JumpHitbox_area_shape_entered"]

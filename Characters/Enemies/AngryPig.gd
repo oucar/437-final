@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends Enemy
 
 onready var animated_sprite = $AnimatedSprite
 onready var animation_tree = $AnimationTree

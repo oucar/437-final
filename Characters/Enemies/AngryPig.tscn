@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=2]
+[gd_scene load_steps=68 format=2]
 
 [ext_resource path="res://Assets/Enemies/AngryPig/Walk (36x30).png" type="Texture" id=1]
 [ext_resource path="res://Assets/Enemies/AngryPig/Idle (36x30).png" type="Texture" id=2]
@@ -339,6 +339,9 @@ tracks/0/keys = {
 "values": [ "walk" ]
 }
 
+[sub_resource type="RectangleShape2D" id=61]
+extents = Vector2( 10, 1 )
+
 [node name="AngryPig" type="KinematicBody2D"]
 collision_layer = 16
 script = ExtResource( 6 )
@@ -346,22 +349,31 @@ script = ExtResource( 6 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 48 )
 animation = "walk"
-frame = 15
+frame = 13
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 2.5 )
 shape = SubResource( 49 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="PlayerDetection" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 8
 monitorable = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
-position = Vector2( 1, 1 )
+position = Vector2( 2, 1 )
 rotation = -1.56311
 shape = SubResource( 50 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 60 )
@@ -375,6 +387,14 @@ anims/hit2 = SubResource( 52 )
 anims/idle = SubResource( 53 )
 anims/run = SubResource( 54 )
 anims/walk = SubResource( 55 )
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( 0, -12 )
+collision_layer = 2048
+collision_mask = 0
+
+[node name="JumpCollisionShape" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 61 )
 
 [connection signal="body_shape_entered" from="PlayerDetection" to="." method="_on_PlayerDetection_body_shape_entered"]
 [connection signal="body_shape_exited" from="PlayerDetection" to="." method="_on_PlayerDetection_body_shape_exited"]

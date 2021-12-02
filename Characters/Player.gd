@@ -4,10 +4,14 @@ extends KinematicBody2D
 var velocity : Vector2
 onready var animation_tree = $AnimationTree
 onready var animated_sprite = $AnimatedSprite
+onready var jump_hitbox = $JumpHitbox
 
 # export will be publicly viewable in Inspector
 export(float) var MOVE_SPEED = 200;
+export(float) var jump_damage = 1
 export(float) var jump_impulse = 600
+export(float) var enemy_bounce_impulse = 400
+
 
 # turn human readable string into index
 enum STATE { IDLE, RUN, JUMP, DOUBLE_JUMP, WALL_JUMP, HIT, FALL }
@@ -92,6 +96,17 @@ func jump():
 	velocity.y = -jump_impulse
 	jumps += 1
 	
+# HITBOX & HURTBOX
+# jumping on an enemy
+func _on_JumpHitbox_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
+	# check if the thing we're jumping on is an enemy
+	var enemy = area.owner
+	
+	if(enemy is Enemy && enemy.can_be_hit):
+		# global position - not relative to anything
+		if(jump_hitbox.global_position.y < area.global_position.y):
+			# Jump attack implementation
+			velocity.y = -enemy_bounce_impulse
 
 
 # SETTERS AND GETTERS
@@ -104,3 +119,5 @@ func set_current_state(new_state):
 			animation_tree.set("parameters/double_jump/active", true)
 			
 	
+
+
