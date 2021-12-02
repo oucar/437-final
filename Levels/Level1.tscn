@@ -13,6 +13,7 @@ region_enabled = true
 region_rect = Rect2( 0, 0, 1000, 1000 )
 
 [node name="TileMap" type="TileMap" parent="."]
+position = Vector2( 2, 0 )
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 16, 16 )
 format = 1
