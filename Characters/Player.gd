@@ -115,6 +115,9 @@ func get_hit(damage : float):
 	self.health -= damage
 	self.current_state = STATE.HIT
 	
+# Call when hit finished (req for animations)
+func on_hit_finished():
+	self.current_state = STATE.IDLE
 
 # SETTERS AND GETTERS
 func set_current_state(new_state):
