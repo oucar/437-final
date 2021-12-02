@@ -101,5 +101,5 @@ func set_current_state(new_state):
 	match(new_state):
 		STATE.JUMP:
 			jump()
+			
 	
-
