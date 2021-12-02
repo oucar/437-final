@@ -40,8 +40,12 @@ func _physics_process(delta):
 	
 # Animation Tree
 func set_anim_parameters():
-	# required for blend_position! check the docs if needed
+	# required for blend_position and blend! check the docs if needed
+	# Facing Left and Right
 	animation_tree.set("parameters/x_move/blend_position", sign(velocity.x))
+	
+	# Jump and Fall
+	animation_tree.set("parameters/y_move/blend_amount", sign(velocity.y))
 
 # Flip the sprite to when moving right or left (only when needed)	
 func flip_direction_handler(input : Vector2):
