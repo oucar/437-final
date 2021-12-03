@@ -436,7 +436,7 @@ script = ExtResource( 8 )
 position = Vector2( -16, -19 )
 frames = SubResource( 30 )
 animation = "idle"
-frame = 9
+frame = 4
 playing = true
 centered = false
 
@@ -469,5 +469,8 @@ collision_mask = 2048
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpHitbox"]
 shape = SubResource( 63 )
+
+[node name="InvulnerabilityTimer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="area_shape_entered" from="JumpHitbox" to="." method="_on_JumpHitbox_area_shape_entered"]

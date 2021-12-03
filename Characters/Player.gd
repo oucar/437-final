@@ -5,12 +5,14 @@ var velocity : Vector2
 onready var animation_tree = $AnimationTree
 onready var animated_sprite = $AnimatedSprite
 onready var jump_hitbox = $JumpHitbox
+onready var timer = $InvulnerabilityTimer
 
 # export will be publicly viewable in Inspector
 export(float) var MOVE_SPEED = 200;
 export(float) var jump_damage = 1
 export(float) var jump_impulse = 600
 export(float) var enemy_bounce_impulse = 400
+export(float) var knocback_speed = 75
 
 
 # turn human readable string into index
@@ -24,12 +26,14 @@ var jumps = 0
 # Generic physics process
 func _physics_process(delta):
 	var input = get_player_input()
-	flip_direction_handler(input)
-	
-	velocity = Vector2(
-		input.x * MOVE_SPEED,
-		min(velocity.y + GameSettings.GRAVITY, GameSettings.TERMINAL_VELOCITY)
-	)
+
+	match(current_state):
+		# normal speed
+		STATE.IDLE, STATE.RUN, STATE.JUMP, STATE.DOUBLE_JUMP:
+			velocity = normal_move(input)
+		# move slower when got hit
+		STATE.HIT:
+			velocity = hit_move()
 
 	# Vector2.UP -> Direction of UP direction (check documentation)
 	velocity = move_and_slide(velocity, Vector2.UP)
@@ -37,6 +41,29 @@ func _physics_process(delta):
 	set_anim_parameters()
 	pick_next_state()
 	
+# Move at the normal speed
+func normal_move(input):
+	flip_direction_handler(input)
+	
+	velocity = Vector2(
+		input.x * MOVE_SPEED,
+		min(velocity.y + GameSettings.GRAVITY, GameSettings.TERMINAL_VELOCITY)
+	)
+
+# Move slower when you got hit or take any damage
+func hit_move():
+	var knocback_direction : int
+	
+	# Player facing left, knocback to the right
+	if(animated_sprite.flip_h):
+		knocback_direction = 1
+	# Player facing right, knocback to the left
+	else: 
+		knocback_direction = -1
+	
+	return Vector2(knocback_speed * knocback_direction, 0)
+
+
 # Animation Tree
 func set_anim_parameters():
 	# required for blend_position and blend! check the docs if needed
@@ -76,9 +103,6 @@ func pick_next_state():
 		if(Input.is_action_just_pressed("jump") && (jumps < max_jumps) ):
 			self.current_state = STATE.DOUBLE_JUMP
 
-
-	
-
 func get_player_input():
 	var input: Vector2
 	
@@ -112,8 +136,12 @@ func _on_JumpHitbox_area_shape_entered(area_rid, area, area_shape_index, local_s
 
 # Get hit by an enemy
 func get_hit(damage : float):
-	self.health -= damage
-	self.current_state = STATE.HIT
+	if(timer.is_stopped()):
+		self.health -= damage
+		self.current_state = STATE.HIT
+		# start the timer to make player invicible for a second or so.
+		timer.start()
+	
 	
 # Call when hit finished (req for animations)
 func on_hit_finished():
