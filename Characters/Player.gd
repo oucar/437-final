@@ -45,7 +45,7 @@ func _physics_process(delta):
 func normal_move(input):
 	flip_direction_handler(input)
 	
-	velocity = Vector2(
+	return Vector2(
 		input.x * MOVE_SPEED,
 		min(velocity.y + GameSettings.GRAVITY, GameSettings.TERMINAL_VELOCITY)
 	)
