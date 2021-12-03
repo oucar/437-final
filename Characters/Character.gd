@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+# will be used for the healthbar
 signal health_changed(new_health)
 
 export(int) var health = 3 setget set_health
