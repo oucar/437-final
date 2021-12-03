@@ -48,6 +48,7 @@ position = Vector2( 1180, -79 )
 
 [node name="Bee2" parent="Enemies" instance=ExtResource( 9 )]
 position = Vector2( 312, -295 )
+waypoints = [ NodePath("../../EnemyWaypoints/Position2D"), NodePath("../../EnemyWaypoints/Position2D2") ]
 
 [node name="Bee7" parent="Enemies" instance=ExtResource( 9 )]
 position = Vector2( 729, -514 )
@@ -81,6 +82,14 @@ position = Vector2( 1028, -227 )
 
 [node name="Bee11" parent="Enemies" instance=ExtResource( 9 )]
 position = Vector2( 1329, -1332 )
+
+[node name="EnemyWaypoints" type="YSort" parent="."]
+
+[node name="Position2D" type="Position2D" parent="EnemyWaypoints"]
+position = Vector2( 418, -291 )
+
+[node name="Position2D2" type="Position2D" parent="EnemyWaypoints"]
+position = Vector2( 218, -289 )
 
 [node name="GameUI" parent="." instance=ExtResource( 4 )]
 

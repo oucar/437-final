@@ -1,28 +1,35 @@
 extends Enemy
 
+
 enum STATE { IDLE, HIT, ATTACK }
-
-export(float) var fly_speed = 50
-export(PackedScene) var projectile
-
 var current_state = STATE.IDLE setget set_current_state
 
-# Direction to launch the projectile
-var attack_direction
 
-# Current target for launched projectiles
+# moving between the waypoints
+export(float) var fly_speed = 50
+
+# https://docs.godotengine.org/en/stable/classes/class_packedscene.html#tutorials
+# For projectile - bee sting
+export(PackedScene) var projectile
+
+# direction that bee will launching its sting
+var attack_direction
+# current target for the sting (only 1 at a time)
 var attack_target
 
+# DECREASE THE ATTACK TIME FOR LEVEL 2!!
 onready var attack_timer = $AttackTimer
 onready var enemy_collision_hitbox = $EnemyCollisionHitbox
 onready var launch_position = $LaunchPosition
 
 func _physics_process(delta):
 	match(current_state):
+		# move between the waypoint
 		STATE.IDLE:
 			waypoint_move(delta)
 			
-			# Attack the targets that entered if the timer is not running
+			# attack the player only when attack timer is NOT running
+			# and target is a valid player!!
 			if(is_instance_valid(attack_target) && attack_timer.is_stopped()):
 				self.current_state = STATE.ATTACK
 				attack_direction = self.position.direction_to(attack_target.position)
