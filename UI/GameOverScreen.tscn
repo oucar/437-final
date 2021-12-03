@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://UI/GameOverScreen.gd" type="Script" id=1]
+
+[sub_resource type="Theme" id=3]
+
+[sub_resource type="Gradient" id=4]
+offsets = PoolRealArray( 0.996198, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 4 )
+
+[node name="GameOverScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Screen" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Screen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource( 3 )
+texture = SubResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Screen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Game Over!
+
+Thank you for playing!
+
+Onur Ucar"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
