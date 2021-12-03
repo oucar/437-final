@@ -79,6 +79,8 @@ func _on_PlayerDetection_body_shape_exited(body_rid, body, body_shape_index, loc
 	animation_tree.set("parameters/player_detected/blend_position", 0)
 	current_state = STATE.WALK
 	
+
+	
 # Run when hit animation is finished
 func hit_animation_finished():
 	can_be_hit = true
@@ -87,7 +89,8 @@ func hit_animation_finished():
 
 func get_hit(damage : float):
 	print("!!")
-	health -= damage
+	# Character.gd - check setget
+	self.health -= damage
 	
 	if(health <= 0):
 		# remove the scene
@@ -108,5 +111,8 @@ func get_hit(damage : float):
 func set_waypoint_index(value):
 	waypoint_index = value
 	waypoint_position = get_node(waypoints[value]).position
+
+
+
 
 
