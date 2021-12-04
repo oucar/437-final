@@ -67,6 +67,17 @@ Tilesets were super easy to implement, thanks to Godot.
 Scene changes when Player body enters the collision shape of the below flag.
 ![Flag](https://raw.githubusercontent.com/oucar/437-final/master/Assets/Pixel%20Adventure%201/Items/Checkpoints/Checkpoint/Checkpoint%20(Flag%20Idle)(64x64).png?token=ANZTQTDJP4LNEMXPCLGASPTBWRQ64)
 
+There are currently 3 different levels in the game.
+#### Level 1
+Even though this is the first level in the game, it is the most challenging one. It was actually harder than it is right now, but I made some of the platforms bigger and removed 3 bees from the scene to make it a little bit more possible to get to the flag.
+![Level 1](https://raw.githubusercontent.com/oucar/437-final/master/Assets/Github/Level1.png?token=ANZTQTFCZJR7NESPNKKWL7DBWRRPS)
+#### Level 2
+Another level design, it is as difficult as the first one.  Try to get to the flag.
+![Level 2](https://raw.githubusercontent.com/oucar/437-final/master/Assets/Github/Level2.png?token=ANZTQTCAGPPSHRFLUZSH3VLBWRRQE)
+#### Level 3
+There is nothing special in this level. You have to jump of off the cliff the end the game and see how many enemies (bees) you killed during the game.
+![Level 3](https://raw.githubusercontent.com/oucar/437-final/master/Assets/Github/Level3.png?token=ANZTQTHKWWAUR4VMUQZQPRDBWRRR6)
+
 
 
 ## State Transition Diagram

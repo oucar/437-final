@@ -12,10 +12,6 @@
 [ext_resource path="res://Music/talkingsynth.mp3" type="AudioStream" id=10]
 [ext_resource path="res://Music/8bit_gunloop_explosion.wav" type="AudioStream" id=11]
 
-[sub_resource type="AtlasTexture" id=91]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 32, 32 )
-
 [sub_resource type="AtlasTexture" id=66]
 atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 32, 32 )
@@ -140,6 +136,10 @@ region = Rect2( 320, 0, 32, 32 )
 atlas = ExtResource( 3 )
 region = Rect2( 352, 0, 32, 32 )
 
+[sub_resource type="AtlasTexture" id=91]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 32, 32 )
+
 [sub_resource type="AtlasTexture" id=80]
 atlas = ExtResource( 7 )
 region = Rect2( 0, 0, 32, 32 )
@@ -186,11 +186,6 @@ region = Rect2( 320, 0, 32, 32 )
 
 [sub_resource type="SpriteFrames" id=42]
 animations = [ {
-"frames": [ SubResource( 91 ) ],
-"loop": true,
-"name": "jump",
-"speed": 20.0
-}, {
 "frames": [ SubResource( 66 ), SubResource( 67 ), SubResource( 68 ), SubResource( 69 ), SubResource( 70 ), SubResource( 71 ), SubResource( 72 ) ],
 "loop": true,
 "name": "hit",
@@ -214,6 +209,11 @@ animations = [ {
 "frames": [ SubResource( 97 ), SubResource( 98 ), SubResource( 99 ), SubResource( 100 ), SubResource( 101 ), SubResource( 102 ), SubResource( 103 ), SubResource( 104 ), SubResource( 105 ), SubResource( 106 ), SubResource( 107 ), SubResource( 108 ) ],
 "loop": true,
 "name": "run",
+"speed": 20.0
+}, {
+"frames": [ SubResource( 91 ) ],
+"loop": true,
+"name": "jump",
 "speed": 20.0
 }, {
 "frames": [ SubResource( 80 ), SubResource( 81 ), SubResource( 82 ), SubResource( 83 ), SubResource( 84 ), SubResource( 85 ), SubResource( 86 ), SubResource( 87 ), SubResource( 88 ), SubResource( 89 ), SubResource( 90 ) ],
@@ -431,7 +431,7 @@ nodes/x_sign/node = SubResource( 62 )
 nodes/x_sign/position = Vector2( -180, 0 )
 nodes/y_sign/node = SubResource( 63 )
 nodes/y_sign/position = Vector2( 260, -60 )
-node_connections = [ "hit", 0, "is_on_wall", "hit", 1, "Animation 4", "double_jump", 0, "y_sign", "double_jump", 1, "Animation 3", "is_on_wall", 0, "double_jump", "is_on_wall", 1, "Animation 5", "y_sign", 0, "Animation", "y_sign", 1, "x_sign", "y_sign", 2, "Animation 2", "output", 0, "hit" ]
+node_connections = [ "hit", 0, "is_on_wall", "hit", 1, "Animation 4", "double_jump", 0, "y_sign", "double_jump", 1, "Animation 3", "y_sign", 0, "Animation", "y_sign", 1, "x_sign", "y_sign", 2, "Animation 2", "output", 0, "hit", "is_on_wall", 0, "double_jump", "is_on_wall", 1, "Animation 5" ]
 
 [sub_resource type="RectangleShape2D" id=65]
 extents = Vector2( 8, 1 )
@@ -443,7 +443,7 @@ script = ExtResource( 8 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 42 )
 animation = "idle"
-frame = 7
+frame = 9
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
