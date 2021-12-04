@@ -1,3 +1,4 @@
+
 ## Software Engineering
 #### Technologies used: 
 - Godot / GDScript
@@ -22,10 +23,49 @@
 	- I might randomly generate many platform in a tower so the Player can only go upwards meanwhile avoiding the enemies and their projectiles and trying not to miss the platforms.
 	- It is possible to export our games to IOS and Android platforms. It might be a great example to test my owngame in a device other than a personal computer. 
 
-	![Player Idle](https://raw.githubusercontent.com/oucar/437-final/master/Assets/Pixel%20Adventure%201/Main%20Characters/Virtual%20Guy/Idle%20(32x32).png?token=ANZTQTEUIV6PFUB6DHBWZDDBWRLI2)
-
 
 ## Game Design
+#### Credits:
+- [Pixel Adventure 1 by @pixelfrog ](https://pixelfrog-assets.itch.io/pixel-adventure-1) 
+- [Pixel Adventure 2 by @pixelfrog  ](https://pixelfrog-assets.itch.io/pixel-adventure-2) 
+- [Lunar Harvest by @FoxSynergy]()https://opengameart.org/content/lunar-harvest
+- [8 bit gun sound effect by @Luke.RUSTLTD](https://opengameart.org/content/gunloop-8bit)
+### Player
+- Idle
+	![Player Idle](https://raw.githubusercontent.com/oucar/437-final/master/Assets/Pixel%20Adventure%201/Main%20Characters/Virtual%20Guy/Idle%20(32x32).png?token=ANZTQTEUIV6PFUB6DHBWZDDBWRLI2)
+- Run
+![Player Run](https://raw.githubusercontent.com/oucar/437-final/master/Assets/Pixel%20Adventure%201/Main%20Characters/Virtual%20Guy/Run%20(32x32).png?token=ANZTQTEJ5ODG3XQL3LJMM7TBWRLVW)
+- Hit
+![Player Hit](https://raw.githubusercontent.com/oucar/437-final/master/Assets/Pixel%20Adventure%201/Main%20Characters/Virtual%20Guy/Hit%20(32x32).png?token=ANZTQTGRPMV6GD2UPZWCEW3BWRLZ6)
+- Fall
+![Player Fall](https://raw.githubusercontent.com/oucar/437-final/master/Assets/Pixel%20Adventure%201/Main%20Characters/Virtual%20Guy/Fall%20(32x32).png?token=ANZTQTCD2X7ZPW33UGRBFVDBWRL5S)
+- Jump
+![Player Jump](https://raw.githubusercontent.com/oucar/437-final/master/Assets/Pixel%20Adventure%201/Main%20Characters/Virtual%20Guy/Jump%20(32x32).png?token=ANZTQTHH3CF5YEP6C5XSY3LBWRL3M)
+- Wall Jump
+![Player Wall Jump](https://raw.githubusercontent.com/oucar/437-final/master/Assets/Pixel%20Adventure%201/Main%20Characters/Virtual%20Guy/Wall%20Jump%20(32x32).png?token=ANZTQTET77SGNBZR2JPFH6LBWRL4W)
+- Double Jump
+![Player Dobule Jump](https://raw.githubusercontent.com/oucar/437-final/master/Assets/Pixel%20Adventure%201/Main%20Characters/Virtual%20Guy/Double%20Jump%20(32x32).png?token=ANZTQTBENYCUWYYOVEURHBLBWRL4E)
+
+
+
+### Enemy
+- Idle
+	![Enemy Idle](https://raw.githubusercontent.com/oucar/437-final/master/Assets/Pixel%20Adventure%202/Enemies/Bee/Idle%20(36x34).png?token=ANZTQTHVAX7VXVZWW7P7W7DBWRMZM)
+- Attack
+	![Enemy Attack](https://raw.githubusercontent.com/oucar/437-final/master/Assets/Pixel%20Adventure%202/Enemies/Bee/Attack%20(36x34).png?token=ANZTQTHEW2SUULZDXH74KFDBWRNCO)
+- Hit
+	![Enemy Hit](https://raw.githubusercontent.com/oucar/437-final/master/Assets/Pixel%20Adventure%202/Enemies/Bee/Hit%20(36x34).png?token=ANZTQTFKNCAZQFJLAWS4YATBWRM7M)
+- Projectile
+	![Enemy Idle](https://raw.githubusercontent.com/oucar/437-final/master/Assets/Pixel%20Adventure%202/Enemies/Bee/Bullet.png?token=ANZTQTB2O5B44N5IBLQGKJ3BWRNAO)
+
+### Tileset
+Tilesets were super easy to implement, thanks to Godot.
+
+![Tileset](https://raw.githubusercontent.com/oucar/437-final/master/Assets/Pixel%20Adventure%201/Terrain/Terrain%20(16x16).png?token=ANZTQTDIW7WCBINOER3QTHDBWRNE2)
+
+### Scenes / Level
+Scene changes when Player body enters the collision shape of the below flag.
+![Flag](https://raw.githubusercontent.com/oucar/437-final/master/Assets/Pixel%20Adventure%201/Items/Checkpoints/Checkpoint/Checkpoint%20(Flag%20Idle)(64x64).png?token=ANZTQTDJP4LNEMXPCLGASPTBWRQ64)
 
 
 
