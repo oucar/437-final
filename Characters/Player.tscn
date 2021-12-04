@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=2]
+[gd_scene load_steps=79 format=2]
 
 [ext_resource path="res://Assets/Pixel Adventure 1/Main Characters/Virtual Guy/Jump (32x32).png" type="Texture" id=1]
 [ext_resource path="res://Assets/Pixel Adventure 1/Main Characters/Virtual Guy/Wall Jump (32x32).png" type="Texture" id=2]
@@ -8,6 +8,9 @@
 [ext_resource path="res://Assets/Pixel Adventure 1/Main Characters/Virtual Guy/Fall (32x32).png" type="Texture" id=6]
 [ext_resource path="res://Assets/Pixel Adventure 1/Main Characters/Virtual Guy/Idle (32x32).png" type="Texture" id=7]
 [ext_resource path="res://Characters/Player.gd" type="Script" id=8]
+[ext_resource path="res://Music/Lunar Harvest v1_0.mp3" type="AudioStream" id=9]
+[ext_resource path="res://Music/talkingsynth.mp3" type="AudioStream" id=10]
+[ext_resource path="res://Music/8bit_gunloop_explosion.wav" type="AudioStream" id=11]
 
 [sub_resource type="AtlasTexture" id=91]
 atlas = ExtResource( 1 )
@@ -60,6 +63,10 @@ region = Rect2( 96, 0, 32, 32 )
 [sub_resource type="AtlasTexture" id=96]
 atlas = ExtResource( 2 )
 region = Rect2( 128, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=79]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=73]
 atlas = ExtResource( 5 )
@@ -133,10 +140,6 @@ region = Rect2( 320, 0, 32, 32 )
 atlas = ExtResource( 3 )
 region = Rect2( 352, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=79]
-atlas = ExtResource( 6 )
-region = Rect2( 0, 0, 32, 32 )
-
 [sub_resource type="AtlasTexture" id=80]
 atlas = ExtResource( 7 )
 region = Rect2( 0, 0, 32, 32 )
@@ -198,6 +201,11 @@ animations = [ {
 "name": "wall_slide",
 "speed": 20.0
 }, {
+"frames": [ SubResource( 79 ) ],
+"loop": true,
+"name": "fall",
+"speed": 20.0
+}, {
 "frames": [ SubResource( 73 ), SubResource( 74 ), SubResource( 75 ), SubResource( 76 ), SubResource( 77 ), SubResource( 78 ) ],
 "loop": true,
 "name": "double_jump",
@@ -206,11 +214,6 @@ animations = [ {
 "frames": [ SubResource( 97 ), SubResource( 98 ), SubResource( 99 ), SubResource( 100 ), SubResource( 101 ), SubResource( 102 ), SubResource( 103 ), SubResource( 104 ), SubResource( 105 ), SubResource( 106 ), SubResource( 107 ), SubResource( 108 ) ],
 "loop": true,
 "name": "run",
-"speed": 20.0
-}, {
-"frames": [ SubResource( 79 ) ],
-"loop": true,
-"name": "fall",
 "speed": 20.0
 }, {
 "frames": [ SubResource( 80 ), SubResource( 81 ), SubResource( 82 ), SubResource( 83 ), SubResource( 84 ), SubResource( 85 ), SubResource( 86 ), SubResource( 87 ), SubResource( 88 ), SubResource( 89 ), SubResource( 90 ) ],
@@ -428,7 +431,7 @@ nodes/x_sign/node = SubResource( 62 )
 nodes/x_sign/position = Vector2( -180, 0 )
 nodes/y_sign/node = SubResource( 63 )
 nodes/y_sign/position = Vector2( 260, -60 )
-node_connections = [ "y_sign", 0, "Animation", "y_sign", 1, "x_sign", "y_sign", 2, "Animation 2", "hit", 0, "is_on_wall", "hit", 1, "Animation 4", "double_jump", 0, "y_sign", "double_jump", 1, "Animation 3", "is_on_wall", 0, "double_jump", "is_on_wall", 1, "Animation 5", "output", 0, "hit" ]
+node_connections = [ "hit", 0, "is_on_wall", "hit", 1, "Animation 4", "double_jump", 0, "y_sign", "double_jump", 1, "Animation 3", "is_on_wall", 0, "double_jump", "is_on_wall", 1, "Animation 5", "y_sign", 0, "Animation", "y_sign", 1, "x_sign", "y_sign", 2, "Animation 2", "output", 0, "hit" ]
 
 [sub_resource type="RectangleShape2D" id=65]
 extents = Vector2( 8, 1 )
@@ -440,7 +443,7 @@ script = ExtResource( 8 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 42 )
 animation = "idle"
-frame = 4
+frame = 7
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -484,6 +487,16 @@ one_shot = true
 [node name="DropTimer" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
+
+[node name="GetHitEffect" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 11 )
+
+[node name="DieSoundEffect" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 10 )
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 9 )
+autoplay = true
 
 [connection signal="tree_entered" from="." to="." method="_on_Player_tree_entered"]
 [connection signal="area_shape_entered" from="JumpHitbox" to="." method="_on_JumpHitbox_area_shape_entered"]
