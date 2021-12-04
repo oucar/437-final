@@ -7,7 +7,7 @@ export(float) var knockback_collision_speed = 30
 export(float) var wall_slide_friction = 0.6
 export(int) var max_jumps = 2
 export(float) var jump_damage = 1
-export(int) var total_bees_killed = 0
+
 
 enum STATE { IDLE, RUN, JUMP, DOUBLE_JUMP, HIT, WALL_SLIDE}
 
@@ -19,6 +19,9 @@ onready var jump_hitbox = $JumpHitbox
 onready var invincible_timer = $InvincibleTimer
 onready var wall_jump_timer = $WallJumpTimer
 onready var drop_timer = $DropTimer
+
+# Displaying total killed
+# Credits: https://www.youtube.com/watch?v=koWEn_WuvgY
 
 signal player_died(player)
 
@@ -218,13 +221,8 @@ func wall_jump():
 	wall_jump_direction = -get_facing_direction()
 	wall_jump_timer.start()
 	
-# Fall through one way collision platforms
-func drop():
-	position.y += 1
-	
-	pass # Replace with function body.
 
-# Get hit by an enemy
+# hit by the enemy
 func get_hit(damage : float):
 	if(invincible_timer.is_stopped()):
 		if(damage >= self.health):
@@ -237,7 +235,7 @@ func get_hit(damage : float):
 			# start the timer to make player invicible for a second or so.
 			invincible_timer.start()
 			# Debug
-			print("Debug: You git hit by an enemy instance! Current health: ", self.health)
+			print("Debug: You got hit by an enemy instance! Current health: ", self.health)
 
 func die():
 	emit_signal("player_died", self)
@@ -269,6 +267,17 @@ func _on_JumpHitbox_area_shape_entered(area_id, area, area_shape, local_shape):
 			# Jump attack implementation
 			velocity.y = -enemy_bounce_impulse
 			enemy.get_hit(jump_damage)
+			print("Debug: Current health of the enemy: ", enemy.health)
+			
+			if(enemy.health <= 0):
+				GameSettings.TOTAL_BEES_KILLED += 1 
+				#total_killed_value.text = str(GameSettings.TOTAL_BEES_KILLED)
+				
+				print("Debug: You killed an enemy!")
+				print("Debug: You killed ", GameSettings.TOTAL_BEES_KILLED , " enemies in total.")
+				
+				
+				
 		
 #####################
 ###### SETTERS ######

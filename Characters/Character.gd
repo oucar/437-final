@@ -3,6 +3,7 @@ extends KinematicBody2D
 # will be used for the healthbar
 signal health_changed(new_health)
 
+
 export(int) var health = 3 setget set_health
 
 func set_health(value):
@@ -18,6 +19,7 @@ func set_health(value):
 		print("Debug: Hit detected!")
 	else:
 		print("Debug: Instance died!")
+		# total_bees
 
 #############################
 ##### VIRTUAL FUNCTIONS #####
