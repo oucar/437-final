@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Lunar Harvest v1_0.mp3-40be012321d7376c14cd790fd9e72532.mp3str"
+
+[deps]
+
+source_file="res://Music/Lunar Harvest v1_0.mp3"
+dest_files=[ "res://.import/Lunar Harvest v1_0.mp3-40be012321d7376c14cd790fd9e72532.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

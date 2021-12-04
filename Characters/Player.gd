@@ -14,11 +14,18 @@ enum STATE { IDLE, RUN, JUMP, DOUBLE_JUMP, HIT, WALL_SLIDE}
 onready var animated_sprite = $AnimatedSprite
 onready var animation_tree = $AnimationTree
 onready var jump_hitbox = $JumpHitbox
+onready var collision_shape = $CollisionShape2D 
 
 # Timers
 onready var invincible_timer = $InvincibleTimer
 onready var wall_jump_timer = $WallJumpTimer
 onready var drop_timer = $DropTimer
+
+# Play sound effect
+onready var music = $Music
+onready var get_hit_sound_effect = $GetHitEffect
+onready var die_sound_effect = $DieSoundEffect
+
 
 # Displaying total killed
 # Credits: https://www.youtube.com/watch?v=koWEn_WuvgY
@@ -35,6 +42,8 @@ var wall_jump_direction : Vector2
 var is_next_to_wall : bool
 
 func _physics_process(delta):
+
+		
 	var input = get_player_input()
 	
 	# https://docs.godotengine.org/en/stable/classes/class_kinematicbody2d.html
@@ -224,14 +233,22 @@ func wall_jump():
 
 # hit by the enemy
 func get_hit(damage : float):
+	
+	print(self.health)
+	if(self.health >= 1):
+		get_hit_sound_effect.play()
+	
 	if(invincible_timer.is_stopped()):
 		if(damage >= self.health):
 			emit_signal("player_died", self)
 			# Debug
 			print("Debug: You died!")
+			queue_free()
+			
 		else:
 			self.health -= damage
 			self.current_state = STATE.HIT
+			# self.queue_free()
 			# start the timer to make player invicible for a second or so.
 			invincible_timer.start()
 			# Debug

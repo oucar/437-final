@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Levels/Level2.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Music/Lunar Harvest v1_0.mp3" type="AudioStream" id=2]
 [ext_resource path="res://Zones/BottomOfScreen.gd" type="Script" id=3]
 [ext_resource path="res://UI/GameUI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/Pixel Adventure 1/Background/Gray.png" type="Texture" id=5]
@@ -41,6 +42,10 @@ move_speed = 300.0
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 position = Vector2( 76, -15 )
 remote_path = NodePath("../../FollowCamera")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Player"]
+position = Vector2( -128, 144 )
+stream = ExtResource( 2 )
 
 [node name="FollowCamera" parent="." instance=ExtResource( 13 )]
 position = Vector2( 204, -159 )
