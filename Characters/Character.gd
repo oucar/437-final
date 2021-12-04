@@ -12,6 +12,12 @@ func set_health(value):
 	if(health <= 0):
 		# remove the instance from the world
 		queue_free()
+		
+	# FOR DEBUGGING
+	if(self.health != 0):
+		print("Debug: Hit detected!")
+	else:
+		print("Debug: Instance died!")
 
 #############################
 ##### VIRTUAL FUNCTIONS #####

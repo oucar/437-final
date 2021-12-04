@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Zones/BottomOfScreen.gd" type="Script" id=3]
+[ext_resource path="res://UI/GameUI.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Pixel Adventure 1/Background/Gray.png" type="Texture" id=5]
+[ext_resource path="res://Levels/pixel_adventure_terrain.tres" type="TileSet" id=10]
+[ext_resource path="res://Characters/Player.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Zones/BottomOfScreen.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Camera/FollowCamera.tscn" type="PackedScene" id=13]
+
+[node name="Level1" type="Node2D"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 599, -506 )
+texture = ExtResource( 5 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 1200, 1000 )
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 10 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( -1048554, 8, 3, -983018, 8, 65539, -917482, 8, 65539, -851946, 8, 65539, -786412, 8, 65536, -786410, 8, 65539, -786408, 8, 65536, -720875, 9, 65536, -720874, 8, 131075, -720873, 9, 65536, -655338, 9, 65536, -524288, 4, 0, -524287, 4, 1, -524286, 4, 1, -524285, 4, 1, -524284, 4, 1, -524283, 4, 1, -524282, 4, 1, -524281, 4, 1, -524280, 4, 1, -524279, 4, 1, -524278, 4, 1, -524277, 4, 1, -524276, 4, 1, -524275, 4, 2, -458752, 4, 65536, -458751, 4, 65537, -458750, 4, 65537, -458749, 4, 65537, -458748, 4, 65537, -458747, 4, 65537, -458746, 4, 65537, -458745, 4, 65537, -458744, 4, 65537, -458743, 4, 65537, -458742, 4, 65537, -458741, 4, 65537, -458740, 4, 65537, -458739, 4, 65538, -393216, 4, 65536, -393215, 4, 65537, -393214, 4, 65537, -393213, 4, 65537, -393212, 4, 65537, -393211, 4, 65537, -393210, 4, 65537, -393209, 4, 65537, -393208, 4, 65537, -393207, 4, 65537, -393206, 4, 65537, -393205, 4, 65537, -393204, 4, 65537, -393203, 4, 65538, -327680, 4, 65536, -327679, 4, 65537, -327678, 4, 65537, -327677, 4, 65537, -327676, 4, 65537, -327675, 4, 65537, -327674, 4, 65537, -327673, 4, 65537, -327672, 4, 65537, -327671, 4, 65537, -327670, 4, 65537, -327669, 4, 65537, -327668, 4, 65537, -327667, 4, 65538, -262144, 4, 65536, -262143, 4, 65537, -262142, 4, 65537, -262141, 4, 65537, -262140, 4, 65537, -262139, 4, 65537, -262138, 4, 65537, -262137, 4, 65537, -262136, 4, 65537, -262135, 4, 65537, -262134, 4, 65537, -262133, 4, 65537, -262132, 4, 65537, -262131, 4, 65538, -196608, 4, 65536, -196607, 4, 65537, -196606, 4, 65537, -196605, 4, 65537, -196604, 4, 65537, -196603, 4, 65537, -196602, 4, 65537, -196601, 4, 65537, -196600, 4, 65537, -196599, 4, 65537, -196598, 4, 65537, -196597, 4, 65537, -196596, 4, 65537, -196595, 4, 65538, -131072, 4, 131072, -131071, 4, 131073, -131070, 4, 131073, -131069, 4, 131073, -131068, 4, 131073, -131067, 4, 131073, -131066, 4, 131073, -131065, 4, 131073, -131064, 4, 131073, -131063, 4, 131073, -131062, 4, 131073, -131061, 4, 131073, -131060, 4, 131073, -131059, 4, 131074, 262169, 0, 0 )
+
+[node name="Player" parent="." instance=ExtResource( 11 )]
+position = Vector2( 128, -144 )
+move_speed = 300.0
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
+position = Vector2( 76, -15 )
+remote_path = NodePath("../../FollowCamera")
+
+[node name="FollowCamera" parent="." instance=ExtResource( 13 )]
+position = Vector2( 204, -159 )
+
+[node name="TopLeft" parent="FollowCamera/Boundaries" index="0"]
+position = Vector2( 9, -984 )
+
+[node name="BottomRight" parent="FollowCamera/Boundaries" index="1"]
+position = Vector2( 1180, -79 )
+
+[node name="GameUI" parent="." instance=ExtResource( 4 )]
+
+[node name="GameOverScreen" parent="GameUI" index="0"]
+margin_right = 22.0
+margin_bottom = 3.0
+
+[node name="BottomOfScreen" parent="." instance=ExtResource( 12 )]
+position = Vector2( 836, -12 )
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+script = ExtResource( 3 )
+
+[connection signal="body_shape_entered" from="BottomOfScreen" to="BottomOfScreen" method="_on_BottomOfScreen_body_shape_entered"]
+
+[editable path="FollowCamera"]
+[editable path="GameUI"]
