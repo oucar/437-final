@@ -201,18 +201,18 @@ fadein_time = 0.0
 fadeout_time = 0.0
 
 [sub_resource type="AnimationNodeBlendTree" id=27]
-graph_offset = Vector2( -260, 138.385 )
+graph_offset = Vector2( 78.0488, 39.1484 )
 nodes/Animation/node = SubResource( 59 )
-nodes/Animation/position = Vector2( 34, 177 )
+nodes/Animation/position = Vector2( -40, 120 )
 "nodes/Animation 2/node" = SubResource( 57 )
-"nodes/Animation 2/position" = Vector2( 20, 310 )
+"nodes/Animation 2/position" = Vector2( -60, 280 )
 "nodes/Animation 3/node" = SubResource( 58 )
-"nodes/Animation 3/position" = Vector2( 298.5, 370.5 )
+"nodes/Animation 3/position" = Vector2( 160, 360 )
 nodes/attack/node = SubResource( 25 )
-nodes/attack/position = Vector2( 240, 160 )
+nodes/attack/position = Vector2( 260, 80 )
 nodes/hit/node = SubResource( 26 )
-nodes/hit/position = Vector2( 510, 170 )
-nodes/output/position = Vector2( 740, 170 )
+nodes/hit/position = Vector2( 500, 100 )
+nodes/output/position = Vector2( 760, 120 )
 node_connections = [ "attack", 0, "Animation", "attack", 1, "Animation 2", "hit", 0, "attack", "hit", 1, "Animation 3", "output", 0, "hit" ]
 
 [sub_resource type="RectangleShape2D" id=31]
@@ -232,7 +232,6 @@ projectile = ExtResource( 5 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 34 )
 animation = "idle"
-frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

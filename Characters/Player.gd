@@ -229,14 +229,19 @@ func get_hit(damage : float):
 	if(invincible_timer.is_stopped()):
 		if(damage >= self.health):
 			emit_signal("player_died", self)
-		
-		self.health -= damage
-		self.current_state = STATE.HIT
-		# start the timer to make player invicible for a second or so.
-		invincible_timer.start()
+			# Debug
+			print("Debug: You died!")
+		else:
+			self.health -= damage
+			self.current_state = STATE.HIT
+			# start the timer to make player invicible for a second or so.
+			invincible_timer.start()
+			# Debug
+			print("Debug: You git hit by an enemy instance! Current health: ", self.health)
 
 func die():
 	emit_signal("player_died", self)
+	print("Debug: You died!")
 	queue_free()
 
 # Call when hit animation is finished (required)
@@ -285,5 +290,5 @@ func set_current_state(new_state):
 			jumps = 0
 	
 	current_state = new_state
-	emit_signal("changed_state", STATE.keys()[new_state], new_state)
+	# emit_signal("changed_state", STATE.keys()[new_state], new_state)
 

@@ -24,7 +24,7 @@ onready var launch_position = $LaunchPosition
 
 func _physics_process(delta):
 	match(current_state):
-		# move between the waypoint
+		# move between the waypoints
 		STATE.IDLE:
 			waypoint_move(delta)
 			
@@ -44,13 +44,6 @@ func get_hit(damage: float):
 	self.health -= damage
 	self.current_state = STATE.HIT
 	
-	
-func _on_ProjectileAttackArea_body_shape_entered(body_id, body, body_shape, local_shape):
-	attack_target = body
-
-
-func _on_ProjectileAttackArea_body_shape_exited(body_id, body, body_shape, local_shape):
-	attack_target = null
 
 # Launches a projectile at the current attack_target with the attack_direction
 func launch_projectile(target_direction : Vector2):
@@ -59,22 +52,31 @@ func launch_projectile(target_direction : Vector2):
 	launched_projectile.rotation += target_direction.angle()
 	get_tree().get_current_scene().add_child(launched_projectile)
 	launched_projectile.target_direction = target_direction
-
+	
+####################################
+###### ANIMATION-TREE RELATED ######
+####################################
 func set_current_state(new_state):
 	match(new_state):
+		# "monitoring", true -> enemy can deal player damage
+		# "monitoring", false -> enemy cannot deal player damage
 		STATE.IDLE:
 			enemy_collision_hitbox.set_deferred("monitoring", true)
+			# for player
 			can_be_hit = true
+			
 		STATE.ATTACK:
 			enemy_collision_hitbox.set_deferred("monitoring", true)
 			can_be_hit = true
 			animation_tree.set("parameters/attack/active", true)
+			
 		STATE.HIT:
 			enemy_collision_hitbox.set_deferred("monitoring", false)
 			can_be_hit = false
 			animation_tree.set("parameters/hit/active", true)
 			
-			# Prevent enemy from launching an attack for a period of time after being hit
+			# enemy will wait for {seconds} until starts attacking again
+			# DO NOT REMOVE!
 			attack_timer.start()
 	
 	current_state = new_state
@@ -85,6 +87,19 @@ func _hit_animation_finished():
 func _attack_animation_finished():
 	self.current_state = STATE.IDLE
 	launch_projectile(attack_direction)
+
+###################
+##### SIGNALS #####
+###################
+func _on_ProjectileAttackArea_body_shape_entered(body_id, body, body_shape, local_shape):
+	print("Debug: Enemy detected the player.")
+	attack_target = body
+	
+	
+func _on_ProjectileAttackArea_body_shape_exited(body_id, body, body_shape, local_shape):
+	print("Debug: Enemy lost the player.")
+	attack_target = null
+
 	
 
 
