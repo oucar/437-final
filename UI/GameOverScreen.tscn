@@ -38,11 +38,37 @@ __meta__ = {
 [node name="Label" type="Label" parent="Screen"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "Game Over!
+text = "
+
+Game Over!
 
 Thank you for playing!
 
-Onur Ucar"
+@oucar"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnemyKilledTextLabel" type="Label" parent="Screen"]
+margin_top = 18.0
+margin_right = 478.0
+margin_bottom = 49.0
+text = "Enemy killed: 
+"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnemyKilledVariableLabel" type="Label" parent="Screen"]
+margin_top = 41.0
+margin_right = 478.0
+margin_bottom = 72.0
+text = "0
+"
 align = 1
 valign = 1
 __meta__ = {

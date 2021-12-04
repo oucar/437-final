@@ -6,7 +6,7 @@ var current_state = STATE.IDLE setget set_current_state
 
 
 # moving between the waypoints
-export(float) var fly_speed = 50
+export(float) var bee_speed = 50
 
 # https://docs.godotengine.org/en/stable/classes/class_packedscene.html#tutorials
 # For projectile - bee sting
@@ -20,6 +20,7 @@ var attack_target
 # DECREASE THE ATTACK TIME FOR LEVEL 2!!
 onready var attack_timer = $AttackTimer
 onready var enemy_collision_hitbox = $EnemyCollisionHitbox
+# launch position of the projectile (check Bee in Scene Editor)
 onready var launch_position = $LaunchPosition
 
 func _physics_process(delta):
@@ -38,20 +39,28 @@ func _physics_process(delta):
 			waypoint_move(delta)
 			
 func _get_move_velocity(delta, direction):
-	return fly_speed * direction
+	return bee_speed * direction
 
 func get_hit(damage: float):
 	self.health -= damage
 	self.current_state = STATE.HIT
 	
-
-# Launches a projectile at the current attack_target with the attack_direction
+# LAUNCHING THE PROJECTILE
+# attacks with a sting to the current direction of the target
+# Credits: 
+# https://www.youtube.com/watch?v=RBvK5lQJHAs
+# https://www.youtube.com/watch?v=cei9BZMzVLY
 func launch_projectile(target_direction : Vector2):
+	
 	var launched_projectile = projectile.instance()
 	launched_projectile.global_position = launch_position.global_position
+	# converts the angle to 2D angle
 	launched_projectile.rotation += target_direction.angle()
+	# add projectile to the scene
 	get_tree().get_current_scene().add_child(launched_projectile)
+	
 	launched_projectile.target_direction = target_direction
+	
 	
 ####################################
 ###### ANIMATION-TREE RELATED ######
