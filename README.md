@@ -22,7 +22,7 @@
 	- I might randomly generate many platform in a tower so the Player can only go upwards meanwhile avoiding the enemies and their projectiles and trying not to miss the platforms.
 	- It is possible to export our games to IOS and Android platforms. It might be a great example to test my owngame in a device other than a personal computer. 
 
-	![Sprite]("https://github.com/oucar/437-final/blob/master/Assets/Pixel%20Adventure%201/Main%20Characters/Virtual%20Guy/Idle%20(32x32).png")
+	![Player Idle](https://raw.githubusercontent.com/oucar/437-final/master/Assets/Pixel%20Adventure%201/Main%20Characters/Virtual%20Guy/Idle%20(32x32).png?token=ANZTQTEUIV6PFUB6DHBWZDDBWRLI2)
 
 
 ## Game Design
