@@ -81,5 +81,20 @@ There is nothing special in this level. You have to jump of off the cliff the en
 
 
 ## State Transition Diagram
+Since built-in Godot properties are so powerful, I used an AnimationPlayer and an AnimationTree for Enemy, Player and the Flag that you need to reach in order to get to the next level. Since AnimationTree's are so powerful, I watched a few YouTube videos before start implementing those ```current_state``` properties to my objects, and they were hardest thing to debug in my  game. These AnimationTrees basically make sure that only one animation will be shown for the ```current_state``` of the objects. An example to the use of below trees might be ```hit``` animation is being called when either Enemy or Player gets hit and stops playing that animation once the animation has ended, then default ```idle``` animation is being played when there's no interaction between Player, Enemy and/or game world.
+
+#### AnimationTree for Player object
+![Player Animation Tree](https://raw.githubusercontent.com/oucar/437-final/master/Assets/Github/playerAnimationTree.png?token=ANZTQTEXP2R4C7G4JR36P7LBXANIE)
+
+#### AnimationTree for Enemy object
+![Enemy Animation Tree](https://raw.githubusercontent.com/oucar/437-final/master/Assets/Github/enemyAnimationTree.png?token=ANZTQTGLJ3QXF23PTH652Z3BXANIK)
+
+#### State transition diagram of the game
+I was drawing this diagram in a website and realized that I have to upgrade my plan to add more shapes to my transition diagram, so I decided to complete my diagram on Paint. Hence, it looks a little terrible.
+![State Transition Diagram](https://raw.githubusercontent.com/oucar/437-final/master/Assets/Github/stateTransitionDiagram.png?token=ANZTQTEKM23CZMH46BTV3RLBXARUI)
+
+I have used a ```MapMove``` scene, which has a CollisionShape2D and a signal attached to it. When a Player body enters to this CollisionShape, the Player gets to the next level.
 
 ## User Instructions
+- [This is the playable version of my game in itch.io.](https://oucar.itch.io/amariogus)
+- You can also run this game if you have Godot installed in your machine. Simply open ```project.godot``` and click the run button onthe upper right.
