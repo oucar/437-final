@@ -6,7 +6,7 @@
 - Onur Ucar
 	- I was the only member of the team. You can check the previous commits for important development milestones of the game.
 #### Development Experience
-- We were developing another 2D Action-RPG game with my classmate "Nicolas Manusso", but we decided to start working on our own final projects for CSCI437. It was a little rough transition to switch from a 2D Action-RPG game to a 2D platformer for me, but many gaming mechanics still held true, such as:
+- We were developing another 2D Action-RPG game with my classmate, but we decided to start working on our own final projects for CSCI437. It was a little rough transition to switch from a 2D Action-RPG game to a 2D platformer, but many gaming mechanics still held true, such as:
 - Input mechanics
 - Hitboxes / Hurtboxes
 - Scene creations
@@ -14,14 +14,13 @@
 - and many more!
 
 #### What Could Have Been Better? / Bugs
-- There are a few bugs I found in my game, but they I couldn't find a solution for them at this point. 
-	- The main theme music of the game restarts when you get to the next level. Actually, the reason why this happens is obvious, The 2DAudioPlayer is a child of the Player in my design. So, when you get to a new level, some of the Player attributes resets and unfortunately this includes the main theme. A possible fix to this issue might be creating a 2DAudioPlayer node in the "Singletons",  the sound can keep playing no matter what state the Player is in.
-	- When you get hit by a enemy projectile (Bee Sting) more than 3 times and if you are still in Enemy's PlayerDetection zone, every new projectile hit resets the GameOverScreen. I tried many different solutions to this but it only got worse. So at this point, unfortunately I am not sure how to fix this issue but will be working on this once I am done with all my finals.
+- The main theme music of the game restarts when you get to the next level. Actually, the reason why this happens is obvious. The 2DAudioPlayer is a child of the Player in my design. So, when you get to a new level, some of the Player attributes reset, and unfortunately, this includes the main theme. A possible fix for this issue might be creating a 2DAudioPlayer node in the "Singletons" group, so the sound can keep playing no matter what state the Player is in.
+- When you get hit by an enemy projectile (Bee Sting) more than 3 times and if you are still in the Enemy's Player Detection zone, every new projectile hit resets the Game Over Screen. I tried many different solutions to this, but it only got worse. So at this point, unfortunately, I am not sure how to fix this issue, but I will be working on this once I am done with all my finals.
 - I will be adding some extra features to my game including but not limited to:
-	- New characters! Since I am using the most common Object-Oriented Programming principles in my game, this will be a huge and easy to implement feature for the game. There is an generic Enemy class in the game and another script for the Bee itself, end since Bee is an Enemy in my design, it inherits all the main methods and variables from the Enemy class. These common attributes and methods include the "waypoint" implementation and other global variables for damage and collision handling. 
-	- Maybe something to use our points for. At this stage in my game, we are earning points by killing enemies but at the end of the game we don't have anything to do with those hard-earned points. I might add a top-score functionality (along with a timer) to the game to make it a little bit more competetive. 
-	- I might randomly generate many platform in a tower so the Player can only go upwards meanwhile avoiding the enemies and their projectiles and trying not to miss the platforms.
-	- It is possible to export our games to IOS and Android platforms. It might be a great example to test my owngame in a device other than a personal computer. 
+	- New characters! Since I am using the most common Object-Oriented Programming principles in my game, this will be a huge and easy-to-implement feature for the game. There is a generic Enemy class in the game and another script for the Bee itself, and since Bee is an Enemy in my design, it inherits all the main methods and variables from the Enemy class. These common attributes and methods include the "waypoint" implementation and other global variables for damage and collision handling.
+	- Maybe something to use our points for. At this stage in my game, we are earning points by killing enemies, but at the end of the game, we don't have anything to do with those hard-earned points. I might add a top-score functionality (along with a timer) to the game to make it a little bit more competitive.
+	- I might randomly generate many platforms in a tower so the Player can only go upwards while avoiding the enemies and their projectiles and trying not to miss the platforms.
+	It is possible to export our games to iOS and Android platforms. It might be a great example to test my own game on a device other than a personal computer.
 
 
 ## Game Design
@@ -75,13 +74,14 @@ Even though this is the first level in the game, it is the most challenging one.
 Another level design, it is as difficult as the first one.  Try to get to the flag.
 ![Level 2](https://raw.githubusercontent.com/oucar/437-final/master/Assets/Github/Level2.png?token=ANZTQTCAGPPSHRFLUZSH3VLBWRRQE)
 #### Level 3
-There is nothing special in this level. You have to jump of off the cliff the end the game and see how many enemies (bees) you killed during the game.
+There is nothing special in this level. You have to jump of off the cliff the end the game and see how many enemies (bees) you killed during the game.<br>
 ![Level 3](https://raw.githubusercontent.com/oucar/437-final/master/Assets/Github/Level3.png?token=ANZTQTHKWWAUR4VMUQZQPRDBWRRR6)
 
 
 
 ## State Transition Diagram
-Since built-in Godot properties are so powerful, I used an AnimationPlayer and an AnimationTree for Enemy, Player and the Flag that you need to reach in order to get to the next level. Since AnimationTree's are so powerful, I watched a few YouTube videos before start implementing those ```current_state``` properties to my objects, and they were hardest thing to debug in my  game. These AnimationTrees basically make sure that only one animation will be shown for the ```current_state``` of the objects. An example to the use of below trees might be ```hit``` animation is being called when either Enemy or Player gets hit and stops playing that animation once the animation has ended, then default ```idle``` animation is being played when there's no interaction between Player, Enemy and/or game world.
+Since built-in Godot properties are so powerful, I used an AnimationPlayer and an AnimationTree for Enemy, Player, and the Flag that you need to reach in order to get to the next level. Since AnimationTrees are so powerful, I watched a few YouTube videos before starting to implement those `current_state` properties to my objects, and they were the hardest thing to debug in my game. These AnimationTrees basically make sure that only one animation will be shown for the `current_state` of the objects. An example of the use of these trees might be the `hit` animation being called when either the Enemy or Player gets hit and stops playing that animation once the animation has ended. Then, the default `idle` animation is played when there's no interaction between the Player, Enemy, and/or the game world.
+
 
 #### AnimationTree for Player object
 ![Player Animation Tree](https://raw.githubusercontent.com/oucar/437-final/master/Assets/Github/playerAnimationTree.png?token=ANZTQTEXP2R4C7G4JR36P7LBXANIE)
@@ -96,5 +96,4 @@ I was drawing this diagram in a website and realized that I have to upgrade my p
 I have used a ```MapMove``` scene, which has a CollisionShape2D and a signal attached to it. When a Player body enters to this CollisionShape, the Player gets to the next level.
 
 ## User Instructions
-- [This is the playable version of my game in itch.io.](https://oucar.itch.io/amariogus)
 - You can also run this game if you have Godot installed in your machine. Simply open ```project.godot``` and click the run button onthe upper right.
